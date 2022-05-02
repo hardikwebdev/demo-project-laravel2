@@ -1,0 +1,193 @@
+/*chat box*/
+.inbox_aside{
+	display: inline-block;
+	width: 29%;
+	vertical-align: top;
+	border-bottom:1px solid #e5e5e5;
+	border-left:1px solid #e5e5e5;
+}
+.aside_head{
+	background: #2b373a;
+	padding: 15px 10px 15px 10px;
+	border-bottom:1px solid #fff; 
+}
+.aside_head h4{
+	color: #16ffd8;
+}
+.inbox_contant{
+	display: inline-block;
+	width: 70%;
+	vertical-align: top;
+	border-bottom:1px solid #e5e5e5;
+}
+.contant_head{
+	background: #2b373a;
+	color: #16ffd8 !important;
+	padding: 15px 10px 15px 10px;
+	border-bottom:1px solid #fff;
+}
+.contant_head h4{
+	color: #16ffd8;
+}
+.contant_message{
+	overflow-y: scroll; overflow-x:hidden;
+	height: 460px;
+	background-color: #fff;
+}
+.aside_user{
+	background-color: #fff;
+	display: block;
+	height: 500px;
+	position:relative;
+	overflow-y: scroll; overflow-x:hidden;
+}
+.aside_user .row{
+	border-bottom:1px solid #e5e5e5;
+	vertical-align: bottom;
+}
+.aside-profile-image{
+	padding: 10px 10px 10px 30px;
+	display: table-cell;
+	width: 15%;
+	vertical-align: top;
+}
+.aside-user-name,h5{
+	padding: 10px 15px 10px 10px;
+	display: table-cell;
+	width: 80%;
+	vertical-align: middle;
+	color: #312f30;
+}
+.active
+{
+	background: #2b373a;
+}
+.active h5{
+	color: #16ffd8 !important;
+}
+.text-box{
+	display: table-cell;
+	width: 90%;
+}
+.sent-button
+{
+	display: table-cell;
+	margin-left: 2%;
+	width: 10%;
+}
+.sent-button-design
+{
+	background-color: #2b373a;
+    display: block;
+    width: 80px;
+    height: 40px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 40px;
+    text-align: center;
+}
+/*chat bubble*/
+
+.talk-box
+{
+	display: block;
+	clear: both;
+}
+/* CSS talk bubble */
+.talk-bubble {
+	margin: 10px 20px 10px 20px;
+	/*display: inline-block;*/
+	position: relative;
+	/*width: 80%;*/
+	height: auto;
+	background-color: #e5e5e5;
+	border-radius: 6px;
+}
+
+.tri-right.left-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: -14px;
+	right: auto;
+	top: 0px;
+	bottom: auto;
+	border: 14px solid;
+	border-color: #e5e5e5 transparent transparent transparent;
+}
+
+.tri-right.right-top:after{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: auto;
+	right: -14px;
+	top: 0px;
+	bottom: auto;
+	border: 14px solid;
+	border-color: #e5e5e5 transparent transparent transparent;
+}
+
+.talk-bubble.tri-right.right-top{
+	float: right;
+}
+
+.talk-bubble.tri-right.left-top {
+    float: left;
+}
+
+/* talk bubble contents */
+.talktext{
+	padding: 0.6em;
+	text-align: left;
+	line-height: 1.5em;
+	box-shadow: 3px 3px 6px #aaaaaa;
+}
+.talktext p{
+	/* remove webkit p margins */
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+}
+.talktext-left {
+    /*text-align: left;*/
+}
+.talktext-right {
+    /*text-align: right;*/
+}
+.time-left {
+    float: right;
+    font-size: 0.7em;
+    display: none;
+}
+.time-right {
+    float: left;
+    font-size: 0.7em;
+    display: none;
+}
+
+/*scroll bar*/
+/* width */
+::-webkit-scrollbar {
+	width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey; 
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: gray; 
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: gray; 
+}

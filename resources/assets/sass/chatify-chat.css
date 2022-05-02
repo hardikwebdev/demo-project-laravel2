@@ -1,0 +1,22 @@
+.chatify-main-container{
+	position: fixed;bottom: -9px;right: 36px;z-index: 99999;
+}
+.chatify_loader_clone{
+	position: fixed;
+	bottom: -9px;
+	right: 36px;
+	z-index: 99999;
+	display: none;
+	min-height: 400px !important;
+	min-width: 350px !important;
+	box-sizing: border-box;
+	background-color: #fff;
+	border: 1px solid #bebebe;
+}
+.loading_gif {
+	position: absolute;
+	top: 62px;
+    right: 31px;
+    height: 65%;
+    width: 85%;
+}
