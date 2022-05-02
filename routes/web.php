@@ -22,7 +22,6 @@ Route::fallback(function () {
 
 /**Login cart section  */
 Route::POST('login-check', 'Auth\LoginController@loginCheck')->name('login_check');
-Route::POST('login-speed', 'Auth\LoginController@speedLogin')->name('speedLogin');
 
 Route::POST('login-cart', 'Auth\LoginController@loginCart')->name('login_cart');
 Route::POST('register-login-popup', 'Auth\LoginController@registerLogin')->name('register_login_popup');
@@ -37,23 +36,12 @@ Route::POST('register-cart', 'Auth\RegisterController@registerCart')->name('regi
 /**Cart page access */
 Route::get('cart', 'NewCartController@view_new_cart')->name('view_cart');
 
-/** Cart Page session  */
-Route::POST('cart-session', 'NewCartController@cookieCart')->name('cookieCart');
-
-Route::post('cart-session/customize', 'NewCartController@cart_customize_session')->name('cart_customize_session');
-Route::post('cart-session/update-cart', 'NewCartController@update_cart_session')->name('update_cart_session');
-Route::post('cart-session/update-add-ons', 'NewCartController@update_add_ons_session')->name('update_add_ons_session');
-Route::post('cart-session/remove-add-ons', 'NewCartController@remove_add_ons_session')->name('remove_add_ons_session');
-
-
 Route::group(['middleware' => ['prevent-back-history', 'CheckWallet']], function () {
   Route::get('/', 'HomeController@index')->name('home');
   Route::get('/home', 'HomeController@index')->name('home');
   Auth::routes();
   Route::get('verify_mobile', 'Auth\RegisterController@verify_mobile')->name('verify_register_mobile');
 });
-
-Route::get('update-header', 'HomeController@UpdateHeaderData')->name('updateing_header');
 
 Route::get('404', "HomeController@error_404");
 
@@ -62,8 +50,6 @@ Route::get('verify_account/{confirmationCode}', [
   'uses' => 'FrontEmailController@VerifyAccount'
 ]);
 
-Route::post('user/checkuserexist', 'HomeController@useralreadyexist');
-Route::post('user/checkemailexist', 'HomeController@emailalreadyexist');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::any('browse/job', 'JobController@browseJob')->name('browse.job');
@@ -88,20 +74,6 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
   Route::get('order/dispute-orders', 'BuyerController@dispute_order_list')->name('getUserDisputeOrders');
   Route::post('order/create-message/{secret}', 'BuyerController@compose_dispute_message')->name('compose_dispute_message');
 
-  /*Paypal Deposit wallet*/
-  Route::post('paypal/deposit/express/checkout', 'PaypalPaymentController@expressCheckoutDeposit')->name('paypal_express_checkout_deposit');
-  Route::get('paypal/deposit/express/success', 'PaypalPaymentController@expressCheckoutDepositSuccess')->name('paypal_express_checkout_deposit_success');
-
-  /* Add money to wallet from paypal*/
-  Route::post('paypal/deposit/add_money_to_wallet', 'PaypalPaymentController@expressCheckoutAddMoney')->name('paypal_add_money_to_wallet');
-  Route::get('paypal/deposit/add_money_to_wallet_success', 'PaypalPaymentController@expressCheckoutAddMoneySuccess')->name('add_money_to_wallet_success');
-
-  /* Add money to wallet from credit card*/
-  Route::get('bluesnap/deposit_to_wallet/thankyou/{invoice_id}', 'PaypalPaymentController@ccDepositeAmtThankyou')->name('cc_deposite_amt.thankyou');
-  Route::get('bluesnap/deposit/check_payment', 'PaypalPaymentController@ccDepositeAmtCheckPayment')->name('cc_deposite_amt.check_payment');
-  Route::post('bluesnap/deposit/refund', 'PaypalPaymentController@ccDepositeAmtRefund')->name('cc_deposite_amt.refund');
-
-
   /* apply hidden pizza */
   Route::post('apply-hidden-pizza', 'HomeController@apply_hidden_pizza')->name('apply_hidden_pizza');
   Route::post('can_show_pizza_for_category', 'HomeController@can_show_pizza_for_category')->name('can_show_pizza_for_category');
@@ -114,13 +86,9 @@ Route::middleware(['auth', 'prevent-back-history'])->group(function () {
 });
 
 Route::middleware(['auth', 'prevent-back-history', 'CheckWallet'])->group(function () {
-  Route::post('resendemail', 'HomeController@ResendEmail')->name('resendemail');
-  Route::post('accept_tearms', 'HomeController@accept_tearms')->name('accept_tearms');
   Route::post('submit_new_features', 'HomeController@submit_new_features')->name('submit_new_features');
   Route::post('update_confetti_effect', 'HomeController@update_confetti_effect')->name('update_confetti_effect');
 
-  Route::get('accountsetting', 'SellerController@account')->name('accountsetting');
-  Route::post('accountsetting', 'SellerController@account')->name('accountsetting');
   Route::post('seller/profileImage', 'SellerController@profileImage')->name('profileImage');
 
   Route::get('seller/security', 'SellerController@security')->name('security');
@@ -146,15 +114,6 @@ Route::middleware(['auth', 'prevent-back-history', 'CheckWallet'])->group(functi
   Route::post('offer/volume/check_exists', 'OfferVolumeDiscountController@checkExists')->name('no_of_volume_service');
   Route::get('offer/volume/delete/{id}', 'OfferVolumeDiscountController@delete')->name('delete_volume_service');
 
-  /*Offer Bundle Discount for services*/
-  Route::get('offer/bundle/discount', 'OfferBundleDiscountController@index')->name('offer_bundle_discount');
-  Route::get('offer/bundle/delete/{id}', 'OfferBundleDiscountController@delete')->name('delete_bundle_discount');
-  Route::get('offer/bundle/create', 'OfferBundleDiscountController@create')->name('create_bundle_offer');
-  Route::post('offer/bundle/store', 'OfferBundleDiscountController@store')->name('store_bundle_offer');
-  Route::get('offer/bundle/edit/{id}', 'OfferBundleDiscountController@edit')->name('edit_bundle_offer');
-  Route::post('offer/bundle/update', 'OfferBundleDiscountController@update')->name('update_bundle_offer');
-  Route::post('offer/bundle/check_discount', 'OfferBundleDiscountController@checkDiscount')->name('check_bundle_discount');
-
   /*Offer Bundle Discount for courses*/
   Route::get('course/bundle/discount', 'CourseBundleDiscountController@index')->name('course.offer_bundle_discount');
   Route::get('course/bundle/delete/{id}', 'CourseBundleDiscountController@delete')->name('course.delete_bundle_discount');
@@ -169,12 +128,8 @@ Route::middleware(['auth', 'prevent-back-history', 'CheckWallet'])->group(functi
   Route::post('service/boost/payment', 'ServiceController@boostPayment')->name('boostPayment');
   Route::post('service/boost/payment/options', 'ServiceController@boost_cart_payment_options')->name('boost_cart_payment_options');
   Route::post('service/boost/rent-section', 'ServiceController@rentAdSpot')->name('rentAdSpot');
-  Route::get('seller/orders/sponsered/details/{id}', 'SellerController@sponsered_order_derails')->name('seller_sponsered_orders_details');
 
   /* Coupan */
-  Route::get('service/coupan/{id}/{type?}', 'CoupanController@index')->name('coupan');
-  Route::get('service/addCoupan/{id}/{type?}', 'CoupanController@showAddCoupan')->name('showAddCoupan');
-  Route::post('service/coupan', 'CoupanController@coupanSubmit')->name('coupanSubmit');
   Route::get('service/editCoupan/{id}/{type}', 'CoupanController@showcoupanEdit')->name('showcoupanEdit');
   Route::post('service/editCoupan/{id}/{type}', 'CoupanController@submitCoupanEdit')->name('coupaneditSubmit');
   Route::get('service/removeCoupan', 'CoupanController@coupanDelete')->name('coupanDelete');
@@ -191,21 +146,16 @@ Route::middleware(['auth', 'prevent-back-history', 'CheckWallet'])->group(functi
   Route::post("buyer/upload_files", 'BuyerController@upload_files')->name('upload_files');
   Route::post("buyer/upload_files_s3", 'BuyerController@upload_files_s3')->name('upload_files_s3');
   Route::post("buyer/upload_temp_file", 'BuyerController@upload_temp_file')->name('upload_temp_file');
-  Route::get('buyer/getallfiles', 'BuyerController@getallfiles')->name('getallfiles');
-  Route::post('buyer/removefile', 'BuyerController@removefile')->name('removefile');
   Route::get('download-file/{id}', 'BuyerController@download_files')->name('download_files');
   Route::get('download/s3/file', 'BuyerController@download_files_s3')->name('download_files_s3');
-  Route::get('download/all/files/{order_id}', 'BuyerController@donwload_all_media')->name('download.all.files');
 
   /*Browse Jobs*/
   Route::get('show/job_detail/{seo}', 'JobController@showJobDetail')->name('show.job_detail');
   Route::post('send/job_proposal', 'JobController@storeJobProposal')->name('send.job_proposal');
-  Route::get('dyanamic/job_div', 'JobController@showEditForm')->name('dyanamic.job_div');
   Route::get('delete/proposal', 'JobController@destroyProposal')->name('delete.proposal');
   Route::get('accept/proposal', 'JobController@acceptProposal')->name('accept.proposal');
   Route::get('reject/proposal_seller', 'JobController@rejectProposalSeller')->name('reject.proposal_seller');
   Route::get('accept/proposal_seller', 'JobController@acceptProposalSeller')->name('accept.proposal_seller');
-  Route::get('paypal/job/promote-bid/express/success', 'JobController@expressCheckoutPromoteBidSuccess')->name('paypal_express_checkout_promote_bid_success');
   Route::post('job/offer/rating', 'JobController@update_job_bid_rating')->name('update_job_bid_rating');
   Route::get('job/offer/hide/{secret}', 'JobController@hide_job_bid')->name('hide_job_bid');
 
@@ -255,17 +205,6 @@ Route::middleware(['auth', 'prevent-back-history', 'CheckWallet'])->group(functi
 
     /*Mail settings*/
     Route::any('seller/mail-settings', 'SellerController@mailSettings')->name('mail_settings');
-
-    /*Paypal service payment*/
-    Route::get('paypal/express/success', 'PaypalPaymentController@expressCheckoutSuccess')->name('paypal_express_checkout_success');
-
-    /*Boost payment skrill*/
-    Route::post('skrill/boostservice/payment', 'SkrillPaymentController@bootServicePayment')->name('skrill.boost.checkout');
-
-    /*Paypal Premium seller*/
-    Route::any('paypal/premium/express/checkout', 'PaypalPaymentController@expressCheckoutPremium')->name('paypal_express_checkout_premium');
-    Route::get('paypal/premium/express/success', 'PaypalPaymentController@expressCheckoutPremiumSuccess')->name('paypal_express_checkout_premium_success');
-    Route::get('cancel/premium_subscription', 'PaypalPaymentController@cancelPremiumSubscription')->name('cancel_premium_subscription');
 
     /*Seller earning/withdraw request*/
     Route::get('seller/earning', 'SellerController@earning')->name('earning');
@@ -348,14 +287,3 @@ Route::get('{username}', 'ServiceController@viewUserServices')->name('viewuserse
 Route::get('profile/{username}/{seo_url}', 'ServiceController@details'); /*Old route*/
 Route::get('course/{username}/{seo_url}', 'CourseController@details')->name('course_details'); /* Course Details Route */
 Route::get('{username}/{seo_url}', 'ServiceController@details')->name('services_details');
-
-/* upgrade order routes */
-Route::post('order/upgrade/payment', 'BuyerController@upgrade_order_payment')->name('upgrade_order_payment');
-Route::post('order/upgrade/payment/options', 'BuyerController@upgrade_order_payment_options')->name('upgrade_order_payment_options');
-Route::post('paypal/upgrade/order/walletPay', 'PaypalPaymentController@walletPayUpgradeOrder')->name('walletPayUpgradeOrder');
-Route::post('paypal/upgrade/order/express/checkout', 'PaypalPaymentController@expressCheckoutUpgradeOrder')->name('paypal_express_checkout_upgrade_order');
-Route::get('paypal/upgrade/order/express/success', 'PaypalPaymentController@expressCheckoutUpgradeOrderSuccess')->name('paypal_express_checkout_upgrade_order_success');
-/*upgrade order bluesnap*/
-Route::post('bluesnap/upgrade/order/payment', 'BluesnapPaymentController@bluesnapUpgradeOrderPayment')->name('bluesnapUpgradeOrderPayment');
-Route::get('bluesnap/upgrade/order/thankyou/{invoice_id}', 'BluesnapPaymentController@blueSnapUpgradeOrderThankyou')->name('bluesnap.upgradeorder.thankyou');
-Route::get('bluesnap/upgrade/order/checkpayment', 'BluesnapPaymentController@blueSnapUpgradeOrderCheckpayment')->name('bluesnap.upgradeorder.checkpayment');
