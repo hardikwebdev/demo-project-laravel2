@@ -44,7 +44,7 @@ use App\Country;
                     <i class="fas fa-angle-down text-color-1"></i>
 				</div>
 			</div>
-			<div class="row justify-content-center bg-white shadow  superstar border-radius-6px py-4 px-2 dropdown-menu legit-drop-scroll-y">
+			<div class="row justify-content-center bg-white shadow  superstar border-radius-6px py-4 px-2 dropdown-menu demo-drop-scroll-y">
 				<div class="col-12">
 					<div class="d-flex justify-content-between">
 						<p class="text-color-6 font-13 font-weight-bold">Filter by Tags</p>
